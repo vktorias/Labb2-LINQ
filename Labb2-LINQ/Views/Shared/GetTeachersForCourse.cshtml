@@ -1,0 +1,32 @@
+﻿@model List<Labb2_LINQ.Models.Teacher>
+
+<h1>Teacher - @ViewBag.SelectedCourseName</h1>
+
+<form asp-controller="TeachersProgramming1" asp-action="GetTeachersForCourse" method="get">
+    <label for="courseId">Select Course:</label>
+<select id="courseId" name="courseId">
+        @foreach (var course in ViewBag.Courses)
+        {
+            <option value="@course.CourseId" selected="@((course.CourseId == ViewBag.SelectedCourseId) ? "selected" : null)">@course.CourseName</option>
+        }
+</select>
+
+    <button type="submit">Submit</button>
+
+</form>
+
+<div>
+    @if ((bool)(ViewBag.HasTeachers ?? false))
+    {
+        <ul>
+            @foreach (var teacher in Model)
+            {
+                <li>@teacher.TeacherFirstName @teacher.TeacherLastName</li>
+            }
+        </ul>
+    }
+    else
+    {
+        <p>No teachers found</p>
+    }
+</div>

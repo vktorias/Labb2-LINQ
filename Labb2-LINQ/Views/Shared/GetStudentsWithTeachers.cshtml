@@ -1,0 +1,26 @@
+﻿@model IEnumerable<Labb2_LINQ.Models.Student>
+
+<h1>All students with their teachers</h1>
+
+@foreach (var student in Model)
+{
+    <h2>@student.StudentFirstName @student.StudentLastName</h2>
+
+    @foreach (var studentCourse in student.StudentCourses)
+    {
+        <h3>@studentCourse.Course.CourseName</h3>
+        <ul>
+            @foreach (var teacherCourse in studentCourse.Course.TeacherCourses)
+            {
+                if (student.TeacherId == teacherCourse.TeacherId)
+                {
+                    <li><strong>@teacherCourse.Teacher.TeacherFirstName @teacherCourse.Teacher.TeacherLastName (Student's Teacher)</strong></li>
+                }
+                else
+                {
+                    <li>@teacherCourse.Teacher.TeacherFirstName @teacherCourse.Teacher.TeacherLastName</li>
+                }
+            }
+        </ul>
+    }
+}
